@@ -2,11 +2,8 @@ import { abi } from "thor-devkit";
 import { getConfig } from "@repo/config";
 import { SimpleAccountFactoryJson } from "@repo/contracts";
 import { getAllEvents } from "./getEvents";
+import { EnvConfig } from "@repo/config/contracts";
 const simpleAccountFactoryAbi = SimpleAccountFactoryJson.abi;
-
-const simpleAccountFactoryContractAddress = getConfig(
-  import.meta.env.VITE_APP_ENV
-).simpleAccountFactoryContractAddress;
 
 export type AccountCreatedEvent = {
   address: string;
@@ -14,7 +11,13 @@ export type AccountCreatedEvent = {
   salt: string;
 };
 
-export const getAccountsCreatedEvents = async (thor: Connex.Thor) => {
+export const getAccountsCreatedEvents = async (
+  thor: Connex.Thor,
+  env: EnvConfig
+) => {
+  const simpleAccountFactoryContractAddress =
+    getConfig(env).simpleAccountFactoryContractAddress;
+
   const accountCreatedAbi = simpleAccountFactoryAbi.find(
     (abi) => abi.name === "AccountCreated"
   );

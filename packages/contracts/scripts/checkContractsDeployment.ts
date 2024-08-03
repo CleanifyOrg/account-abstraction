@@ -60,8 +60,10 @@ async function overrideLocalConfigWithNewContracts(
 ) {
   const newConfig: AppConfig = {
     ...config,
-    simpleAccountFactoryContractAddress: await contracts.simpleAccountFactory,
+    simpleAccountFactoryContractAddress: contracts.simpleAccountFactory,
   };
+
+  console.log(`Overriding local config with new contracts...`, newConfig);
 
   // eslint-disable-next-line
   const toWrite = `import { AppConfig } from \".\" \n const config: AppConfig = ${JSON.stringify(newConfig, null, 2)};

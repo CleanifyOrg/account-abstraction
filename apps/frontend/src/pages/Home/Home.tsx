@@ -9,10 +9,12 @@ export const Home = () => {
         <ContractInfo
           title="AA Factory - Testnet"
           address={getConfig("testnet").simpleAccountFactoryContractAddress}
+          env="testnet"
         />
         <ContractInfo
           title="AA Factory - Mainnet"
           address={getConfig("mainnet").simpleAccountFactoryContractAddress}
+          env="mainnet"
         />
       </HStack>
     </VStack>

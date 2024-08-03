@@ -30,11 +30,14 @@ contract SimpleAccountFactory {
         address owner,
         uint256 salt
     ) public returns (SimpleAccount ret) {
-        address addr = getAccountAddress(owner, salt);
+        address addr = getAddress(owner, salt);
         uint256 codeSize = addr.code.length;
         if (codeSize > 0) {
             return SimpleAccount(payable(addr));
         }
+
+        emit AccountCreated(ret, owner, salt);
+
         ret = SimpleAccount(
             payable(
                 new ERC1967Proxy{salt: bytes32(salt)}(
@@ -43,14 +46,12 @@ contract SimpleAccountFactory {
                 )
             )
         );
-
-        emit AccountCreated(ret, owner, salt);
     }
 
     /**
      * calculate the counterfactual address of this account as it would be returned by createAccount()
      */
-    function getAccountAddress(
+    function getAddress(
         address owner,
         uint256 salt
     ) public view returns (address) {

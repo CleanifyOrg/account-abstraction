@@ -83,6 +83,6 @@ export async function deployAll(config: ContractsConfig): Promise<{
   // );
 
   return {
-    simpleAccountFactory: await simpleAccountFactory.getAddress(),
+    simpleAccountFactory: sfReceipt.contractAddress,
   };
 }
