@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { AddressButtonGhostVariant } from "../../../../components";
+import { useAccountCreatedEvents } from "../../../../hooks";
 
 type ContractAddressAndBalanceCardProps = {
   title: string;
@@ -18,6 +19,9 @@ export const ContractInfo = ({
   title,
   address,
 }: ContractAddressAndBalanceCardProps) => {
+  const { data: accountsCreatedEvents, isLoading: isLoadingCreatedAccoounts } =
+    useAccountCreatedEvents();
+
   return (
     <Card w="full" borderRadius={"2xl"} p={2}>
       <CardHeader>
@@ -30,6 +34,17 @@ export const ContractInfo = ({
               Address
             </Text>
             <AddressButtonGhostVariant address={address} />
+          </HStack>
+
+          <HStack w="full" justify={"space-between"}>
+            <Text fontSize="md" fontWeight={600}>
+              Accounts Created
+            </Text>
+            <Text fontSize="md" fontWeight={600}>
+              {isLoadingCreatedAccoounts
+                ? "Loading..."
+                : accountsCreatedEvents?.created.length}
+            </Text>
           </HStack>
         </VStack>
       </CardBody>

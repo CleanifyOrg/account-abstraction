@@ -13,7 +13,7 @@ export type AppConfig = {
 };
 
 export const getConfig = (env?: EnvConfig): AppConfig => {
-  const appEnv = env || import.meta.env.VITE_APP_ENV;
+  const appEnv = env || process.env.VITE_APP_ENV;
 
   if (!appEnv)
     throw new Error(

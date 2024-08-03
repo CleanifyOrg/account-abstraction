@@ -1,5 +1,5 @@
-import FiorinoContractJson from "./artifacts/contracts/Fiorino.sol/Fiorino.json";
+import SimpleAccountFactoryJson from "./artifacts/contracts/accounts/SimpleAccountFactory.sol/SimpleAccountFactory.json";
 
-export { Fiorino__factory } from "./typechain-types";
+export { SimpleAccountFactory__factory } from "./typechain-types";
 
-export { FiorinoContractJson };
+export { SimpleAccountFactoryJson };

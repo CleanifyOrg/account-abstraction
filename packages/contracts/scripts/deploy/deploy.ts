@@ -6,7 +6,6 @@ export async function deployAll(config: ContractsConfig): Promise<{
   // feeDelegation: string;
 }> {
   const [deployer, owner] = await ethers.getSigners();
-  console.log(config);
 
   //TODO: add (${networkConfig.network.defaultNodeUrl})
   console.log(
