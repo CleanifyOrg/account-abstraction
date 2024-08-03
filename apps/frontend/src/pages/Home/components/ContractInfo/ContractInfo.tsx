@@ -75,7 +75,7 @@ export const ContractInfo = ({
 
           <HStack w="full" justify={"space-between"}>
             <Text fontSize="md" fontWeight={600}>
-              Accounts Created
+              Total accounts created
             </Text>
             <Text fontSize="md" fontWeight={600}>
               {isLoadingCreatedAccoounts
