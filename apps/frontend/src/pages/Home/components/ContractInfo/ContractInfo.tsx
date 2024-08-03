@@ -19,6 +19,7 @@ import {
 import { EnvConfig } from "@repo/config/contracts";
 import { useWallet } from "@vechain/dapp-kit-react";
 import { useCallback } from "react";
+import { getConfig } from "@repo/config";
 
 type ContractAddressAndBalanceCardProps = {
   title: string;
@@ -33,6 +34,9 @@ export const ContractInfo = ({
 }: ContractAddressAndBalanceCardProps) => {
   const { account } = useWallet();
   const toast = useToast();
+
+  const config = getConfig(import.meta.env.VITE_APP_ENV);
+  const isCorrectNetwork = config.network.name === env;
 
   const { data: accountsCreatedEvents, isLoading: isLoadingCreatedAccoounts } =
     useAccountCreatedEvents(env);
@@ -87,9 +91,13 @@ export const ContractInfo = ({
           colorScheme="blue"
           variant="outline"
           onClick={onCreateAccount}
-          isDisabled={!account || !!accountAddress}
+          isDisabled={!account || !!accountAddress || !isCorrectNetwork}
         >
-          {accountAddress ? "Account already created" : "Create Account"}
+          {!isCorrectNetwork
+            ? `Switch to ${env} network`
+            : accountAddress
+              ? "Account already created"
+              : "Create Account"}
         </Button>
       </CardFooter>
     </Card>
