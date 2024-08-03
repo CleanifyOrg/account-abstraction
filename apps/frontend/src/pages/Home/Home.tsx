@@ -8,12 +8,12 @@ export const Home = () => {
     <VStack align="stretch" gap={4}>
       <Grid templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6}>
         <ContractInfo
-          title="Accounts Factory - Testnet"
+          title="Testnet"
           address={getConfig("testnet").simpleAccountFactoryContractAddress}
           env="testnet"
         />
         <ContractInfo
-          title="Accounts Factory - Mainnet"
+          title="Mainnet"
           address={getConfig("mainnet").simpleAccountFactoryContractAddress}
           env="mainnet"
         />

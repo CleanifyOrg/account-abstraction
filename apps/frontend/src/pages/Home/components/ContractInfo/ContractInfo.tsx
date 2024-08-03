@@ -68,14 +68,14 @@ export const ContractInfo = ({
         <VStack spacing={4}>
           <HStack w="full" justify={"space-between"}>
             <Text fontSize="md" wordBreak={"break-word"} fontWeight={600}>
-              Address
+              Contract address
             </Text>
             <AddressButtonGhostVariant address={address} />
           </HStack>
 
           <HStack w="full" justify={"space-between"}>
             <Text fontSize="md" fontWeight={600}>
-              Total accounts created
+              Accounts created
             </Text>
             <Text fontSize="md" fontWeight={600}>
               {isLoadingCreatedAccoounts
@@ -86,19 +86,17 @@ export const ContractInfo = ({
         </VStack>
       </CardBody>
       <CardFooter>
-        <Button
-          w="full"
-          colorScheme="blue"
-          variant="outline"
-          onClick={onCreateAccount}
-          isDisabled={!account || !!accountAddress || !isCorrectNetwork}
-        >
-          {!isCorrectNetwork
-            ? `Switch to ${env} network`
-            : accountAddress
-              ? "Account already created"
-              : "Create Account"}
-        </Button>
+        {!accountAddress && (
+          <Button
+            w="full"
+            colorScheme="blue"
+            variant="outline"
+            onClick={onCreateAccount}
+            isDisabled={!account || !!accountAddress || !isCorrectNetwork}
+          >
+            {!isCorrectNetwork ? `Switch to ${env} network` : "Create Account"}
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
