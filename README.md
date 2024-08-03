@@ -1,5 +1,7 @@
 # Account Abstraction
 
+![Logo](apps/frontend/src/assets/logo.png)
+
 Simplified version of the [Account Abstraction pattern](https://github.com/eth-infinitism/account-abstraction) for the Vechain Thor network.
 
 The contracts consist of:
