@@ -9,6 +9,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { persister, queryClient } from "./utils/queryClient.ts";
 import { getConfig } from "@repo/config";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const config = getConfig(import.meta.env.VITE_APP_ENV);
 
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <App />
         </DAppKitProvider>
       </ChakraProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </PersistQueryClientProvider>
   </React.StrictMode>
 );

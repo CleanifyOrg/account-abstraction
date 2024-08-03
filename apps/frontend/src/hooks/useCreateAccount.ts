@@ -5,6 +5,8 @@ import { useBuildTransaction } from "../utils";
 import { buildClause } from "../utils/buildClause";
 import { getAccountCreatedEventsQueryKey } from "./useAccountCreatedEvents";
 import { EnvConfig } from "@repo/config/contracts";
+import { getAccountAddressQueryKey } from "./useGetAccountAddress";
+import { useWallet } from "@vechain/dapp-kit-react";
 
 const SimpleAccountFactoryInterface =
   SimpleAccountFactory__factory.createInterface();
@@ -17,6 +19,8 @@ type useCreateAccountParams = {
 };
 
 export const useCreateAccount = ({ onSuccess }: Props) => {
+  const { account } = useWallet();
+
   const clauseBuilder = useCallback(
     ({ owner, env }: useCreateAccountParams) => {
       return [
@@ -36,8 +40,9 @@ export const useCreateAccount = ({ onSuccess }: Props) => {
     () => [
       getAccountCreatedEventsQueryKey("testnet"),
       getAccountCreatedEventsQueryKey("mainnet"),
+      getAccountAddressQueryKey(account ?? "", "testnet"),
     ],
-    []
+    [account]
   );
 
   return useBuildTransaction({

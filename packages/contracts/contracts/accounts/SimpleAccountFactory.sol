@@ -30,7 +30,7 @@ contract SimpleAccountFactory {
         address owner,
         uint256 salt
     ) public returns (SimpleAccount ret) {
-        address addr = getAddress(owner, salt);
+        address addr = getAccountAddress(owner, salt);
         uint256 codeSize = addr.code.length;
         if (codeSize > 0) {
             return SimpleAccount(payable(addr));
@@ -51,7 +51,7 @@ contract SimpleAccountFactory {
     /**
      * calculate the counterfactual address of this account as it would be returned by createAccount()
      */
-    function getAddress(
+    function getAccountAddress(
         address owner,
         uint256 salt
     ) public view returns (address) {

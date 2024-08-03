@@ -1,6 +1,7 @@
 import { HStack, VStack } from "@chakra-ui/react";
 import { ContractInfo } from "./components/ContractInfo";
 import { getConfig } from "@repo/config";
+import { AbstractedAccounts } from "./components/AbstractedAccounts/AbstractedAccounts";
 
 export const Home = () => {
   return (
@@ -17,6 +18,8 @@ export const Home = () => {
           env="mainnet"
         />
       </HStack>
+
+      <AbstractedAccounts />
     </VStack>
   );
 };

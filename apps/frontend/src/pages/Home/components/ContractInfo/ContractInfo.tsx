@@ -11,7 +11,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { AddressButtonGhostVariant } from "../../../../components";
-import { useAccountCreatedEvents, useCreateAccount } from "../../../../hooks";
+import {
+  useAccountCreatedEvents,
+  useCreateAccount,
+  useGetAccountAddress,
+} from "../../../../hooks";
 import { EnvConfig } from "@repo/config/contracts";
 import { useWallet } from "@vechain/dapp-kit-react";
 import { useCallback } from "react";
@@ -32,6 +36,8 @@ export const ContractInfo = ({
 
   const { data: accountsCreatedEvents, isLoading: isLoadingCreatedAccoounts } =
     useAccountCreatedEvents(env);
+
+  const { data: accountAddress } = useGetAccountAddress(account ?? "", env);
 
   const createAccountMutation = useCreateAccount({
     onSuccess: () => {
@@ -81,9 +87,9 @@ export const ContractInfo = ({
           colorScheme="blue"
           variant="outline"
           onClick={onCreateAccount}
-          isDisabled={!account}
+          isDisabled={!account || !!accountAddress}
         >
-          Create Account
+          {accountAddress ? "Account already created" : "Create Account"}
         </Button>
       </CardFooter>
     </Card>

@@ -1,14 +1,14 @@
-import { useCallback } from "react"
-import { EnhancedClause, useSendTransaction } from "./useSendTransaction"
-import { useWallet } from "@vechain/dapp-kit-react"
-import { useQueryClient } from "@tanstack/react-query"
+import { useCallback } from "react";
+import { EnhancedClause, useSendTransaction } from "./useSendTransaction";
+import { useWallet } from "@vechain/dapp-kit-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export type BuildTransactionProps<ClausesParams> = {
-  clauseBuilder: (props: ClausesParams) => EnhancedClause[]
-  refetchQueryKeys?: string[][]
-  onSuccess?: () => void
-  invalidateCache?: boolean
-}
+  clauseBuilder: (props: ClausesParams) => EnhancedClause[];
+  refetchQueryKeys?: string[][];
+  onSuccess?: () => void;
+  invalidateCache?: boolean;
+};
 
 /**
  * Custom hook for building and sending transactions.
@@ -24,8 +24,8 @@ export const useBuildTransaction = <ClausesParams>({
   invalidateCache = true,
   onSuccess,
 }: BuildTransactionProps<ClausesParams>) => {
-  const { account } = useWallet()
-  const queryClient = useQueryClient()
+  const { account } = useWallet();
+  const queryClient = useQueryClient();
 
   /**
    * Callback function to be called when the transaction is successfully confirmed.
@@ -33,23 +33,23 @@ export const useBuildTransaction = <ClausesParams>({
    */
   const handleOnSuccess = useCallback(async () => {
     if (invalidateCache) {
-      refetchQueryKeys?.forEach(async queryKey => {
+      refetchQueryKeys?.forEach(async (queryKey) => {
         await queryClient.cancelQueries({
           queryKey,
-        })
+        });
         await queryClient.refetchQueries({
           queryKey,
-        })
-      })
+        });
+      });
     }
 
-    onSuccess?.()
-  }, [invalidateCache, onSuccess, queryClient, refetchQueryKeys])
+    onSuccess?.();
+  }, [invalidateCache, onSuccess, queryClient, refetchQueryKeys]);
 
   const result = useSendTransaction({
     signerAccount: account,
     onTxConfirmed: handleOnSuccess,
-  })
+  });
 
   /**
    * Function to send a transaction based on the provided parameters.
@@ -57,10 +57,10 @@ export const useBuildTransaction = <ClausesParams>({
    */
   const sendTransaction = useCallback(
     (props: ClausesParams) => {
-      result.sendTransaction(clauseBuilder(props))
+      result.sendTransaction(clauseBuilder(props));
     },
-    [clauseBuilder, result],
-  )
+    [clauseBuilder, result]
+  );
 
-  return { ...result, sendTransaction }
-}
+  return { ...result, sendTransaction };
+};
