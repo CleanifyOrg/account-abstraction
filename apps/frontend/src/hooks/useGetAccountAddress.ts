@@ -43,7 +43,7 @@ export const useGetAccountAddress = (address: string, env: EnvConfig) => {
   const config = getConfig(env);
 
   const thor = new Connex.Thor({
-    node: config.network.explorerUrl ?? "",
+    node: config.network.urls[0],
     network: config.network.type,
   });
 
