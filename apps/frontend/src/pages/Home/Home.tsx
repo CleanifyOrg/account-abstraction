@@ -8,12 +8,12 @@ export const Home = () => {
     <VStack align="stretch" gap={4}>
       <HStack spacing={4}>
         <ContractInfo
-          title="AA Factory - Testnet"
+          title="Accounts Factory - Testnet"
           address={getConfig("testnet").simpleAccountFactoryContractAddress}
           env="testnet"
         />
         <ContractInfo
-          title="AA Factory - Mainnet"
+          title="Accounts Factory - Mainnet"
           address={getConfig("mainnet").simpleAccountFactoryContractAddress}
           env="mainnet"
         />

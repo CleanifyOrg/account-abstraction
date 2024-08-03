@@ -1,6 +1,13 @@
-import { HStack, Heading, Tag, useBreakpointValue } from "@chakra-ui/react";
+import {
+  HStack,
+  Heading,
+  Image,
+  Tag,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { getConfig } from "@repo/config";
 import { WalletButton, useWallet } from "@vechain/dapp-kit-react";
+import logo from "../../assets/logo.png";
 
 export const Navbar = () => {
   const config = getConfig(import.meta.env.VITE_APP_ENV);
@@ -8,7 +15,16 @@ export const Navbar = () => {
   const { account } = useWallet();
   return (
     <HStack justify={"space-between"} p={2} borderBottom={"1px solid #EEEEEE"}>
-      <Heading size={"sm"}>Cleanify AA Factory</Heading>
+      <HStack spacing={2}>
+        <Image
+          src={logo}
+          alt="logo"
+          w={"25px"}
+          // h="400px"
+          rounded="full"
+        />
+        <Heading size={"sm"}>AA Factory</Heading>
+      </HStack>
 
       <HStack spacing={4}>
         {account && (

@@ -1,5 +1,5 @@
 import { Image, VStack } from "@chakra-ui/react";
-import fiorino from "../../assets/fiorino.jpeg";
+import logo from "../../assets/logo.png";
 import { motion } from "framer-motion";
 
 export const NotConnected = () => {
@@ -12,7 +12,7 @@ export const NotConnected = () => {
         }}
       >
         <Image
-          src={fiorino}
+          src={logo}
           alt="Not Connected"
           w={"400px"}
           h="400px"
