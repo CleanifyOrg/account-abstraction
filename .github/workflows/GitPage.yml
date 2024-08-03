@@ -25,10 +25,10 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
       - name: Install Dependencies
-        run: npm ci
+        run: yarn
 
       - name: Build Website
-        run: npm run build
+        run: yarn build
 
     #   - name: Deploy With CNAME
     #     if: ${{ github.repository_owner == 'vechain' }}
