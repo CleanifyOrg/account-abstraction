@@ -12,6 +12,8 @@ import "./SimpleAccount.sol";
  * The factory's createAccount returns the target account address even if it is already installed.
  */
 contract SimpleAccountFactory {
+    event AccountCreated(SimpleAccount account, address owner, uint256 salt);
+
     SimpleAccount public immutable accountImplementation;
 
     constructor() {
@@ -41,6 +43,8 @@ contract SimpleAccountFactory {
                 )
             )
         );
+
+        emit AccountCreated(ret, owner, salt);
     }
 
     /**

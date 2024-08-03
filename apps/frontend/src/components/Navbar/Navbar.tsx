@@ -4,7 +4,7 @@ import { WalletButton } from "@vechain/dapp-kit-react";
 export const Navbar = () => {
   return (
     <HStack justify={"space-between"} p={2} borderBottom={"1px solid #EEEEEE"}>
-      <Heading>Fiorino</Heading>
+      <Heading size={"sm"}>Account Abstraction Factory</Heading>
       <WalletButton
         mobile={useBreakpointValue({
           base: true,

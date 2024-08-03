@@ -1,7 +1,10 @@
 import { ContractsConfig } from "@repo/config/contracts";
 import { ethers, network } from "hardhat";
 
-export async function deployAll(config: ContractsConfig): Promise<{}> {
+export async function deployAll(config: ContractsConfig): Promise<{
+  simpleAccountFactory: string;
+  // feeDelegation: string;
+}> {
   const [deployer, owner] = await ethers.getSigners();
   console.log(config);
 
@@ -80,5 +83,7 @@ export async function deployAll(config: ContractsConfig): Promise<{}> {
   //     )
   // );
 
-  return {};
+  return {
+    simpleAccountFactory: await simpleAccountFactory.getAddress(),
+  };
 }

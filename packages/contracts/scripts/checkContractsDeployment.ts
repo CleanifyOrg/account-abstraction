@@ -12,6 +12,7 @@ if (!env) throw new Error("VITE_APP_ENV env variable must be set");
 const config = getConfig();
 
 const isSoloNetwork = network.name === "vechain_solo";
+const isTestnetNetwork = network.name === "vechain_testnet";
 
 async function main() {
   console.log(
@@ -24,15 +25,15 @@ async function main() {
 // check if the contracts specified in the config file are deployed on the network, if not, deploy them (only on solo network)
 async function checkContractsDeployment() {
   try {
-    const fiorinoContract = config.fiorinoContractAddress;
-    const code = fiorinoContract
-      ? await ethers.provider.getCode(fiorinoContract)
+    const simpleAccountFactory = config.simpleAccountFactoryContractAddress;
+    const code = simpleAccountFactory
+      ? await ethers.provider.getCode(simpleAccountFactory)
       : "0x";
     if (code === "0x") {
       console.log(
-        `fiorino contract not deployed at address ${config.fiorinoContractAddress}`
+        `SimpleAccountFactory not deployed at address ${simpleAccountFactory}`
       );
-      if (isSoloNetwork) {
+      if (isSoloNetwork || isTestnetNetwork) {
         // deploy the contracts and override the config file
         const newAddresses = await deployAll(getContractsConfig(env));
 
@@ -40,8 +41,14 @@ async function checkContractsDeployment() {
           newAddresses,
           config.network
         );
-      } else console.log(`Skipping deployment on ${network.name}`);
-    } else console.log(`fiorino contract already deployed`);
+      } else
+        console.log(
+          `Skipping deployment on ${network.name}. Not solo or testnet.`
+        );
+    } else
+      console.log(
+        `SimpleAccountFactory contract already deployed, skipping deployment...`
+      );
   } catch (e) {
     console.log(e);
   }
@@ -53,7 +60,7 @@ async function overrideLocalConfigWithNewContracts(
 ) {
   const newConfig: AppConfig = {
     ...config,
-    fiorinoContractAddress: await contracts.fiorino.getAddress(),
+    simpleAccountFactoryContractAddress: await contracts.simpleAccountFactory,
   };
 
   // eslint-disable-next-line

@@ -16,7 +16,7 @@ export const generateMockLocalConfig = () => {
   const toWrite = `import { AppConfig } from "." \n const config: AppConfig = {
     basePath: "http://localhost:3000",
     environment: "local",
-    fiorinoContractAddress: "0x45d5CA3f295ad8BCa291cC4ecd33382DE40E4FAc",
+    simpleAccountFactory: "0x45d5CA3f295ad8BCa291cC4ecd33382DE40E4FAc",
     "nodeUrl": "http://localhost:8669",
     "network": {
       "id": "solo",

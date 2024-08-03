@@ -1,14 +1,16 @@
 import { VStack } from "@chakra-ui/react";
-import { MintCard } from "./components/MintCard";
-import { BalanceCard } from "./components/BalanceCard";
-import { SendCard } from "./components/SendCard";
+import { ContractInfo } from "./components/ContractInfo";
+import { getConfig } from "@repo/config";
 
 export const Home = () => {
   return (
     <VStack align="stretch" gap={4}>
-      <BalanceCard />
-      <MintCard />
-      <SendCard />
+      Hellooooo
+      <ContractInfo
+        title="AA Factory"
+        address={getConfig().simpleAccountFactoryContractAddress}
+      />
+      {/* <SendCard /> */}
     </VStack>
   );
 };
