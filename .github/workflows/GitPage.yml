@@ -32,7 +32,7 @@ jobs:
         run: yarn
 
       - name: Build Website
-        run: yarn build
+        run: yarn build:mainnet
 
       - name: Deploy With CNAME
         # if: ${{ github.repository_owner == 'vechain' }}
