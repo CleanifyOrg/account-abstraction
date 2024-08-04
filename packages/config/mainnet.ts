@@ -1,9 +1,9 @@
 import { AppConfig } from ".";
 const config: AppConfig = {
   environment: "mainnet",
-  basePath: "https://governance.vebetterdao.org",
+  basePath: "https://aafactory.org",
   simpleAccountFactoryContractAddress:
-    "0x31454bc37feCC3855bf9DF1cA769f25C82eD1e98",
+    "0xC06Ad8573022e2BE416CA89DA47E8c592971679A",
   nodeUrl: "https://mainnet.vechain.org",
   network: {
     id: "main",
