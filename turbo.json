@@ -8,6 +8,10 @@
       "dependsOn": ["^compile", "@repo/config#check-or-generate-local-config"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "build:prod": {
+      "dependsOn": ["^compile", "@repo/config#check-or-generate-local-config"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
