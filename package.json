@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "build:testnet": "dotenv -e .env -v VITE_NETWORK_TYPE=test -- turbo build",
+    "build:mainnet": "dotenv -e .env -v VITE_NETWORK_TYPE=main -- turbo build",
     "lint": "turbo lint",
     "clean": "turbo clean",
     "purge": "turbo purge",
