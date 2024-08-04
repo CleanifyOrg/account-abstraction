@@ -42,7 +42,7 @@ const THOR_TESTNET_URLS = [
   "https://testnet.vecha.in",
 ];
 
-const THOR_SOLO_URLS = ["http://localhost:8669"];
+// const THOR_SOLO_URLS = ["http://localhost:8669"];
 
 const MAIN_EXPLORER_URL = "https://explore.vechain.org";
 const TEST_EXPLORER_URL = "https://explore-testnet.vechain.org";

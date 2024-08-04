@@ -10,7 +10,6 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { persister, queryClient } from "./utils/queryClient.ts";
 import { getConfig } from "@repo/config";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Footer } from "./components/Footer/Footer.tsx";
 
 const config = getConfig(import.meta.env.VITE_APP_ENV);
 
