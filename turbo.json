@@ -9,6 +9,7 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "build:prod": {
+      "cache": false,
       "dependsOn": ["^compile", "@repo/config#check-or-generate-local-config"],
       "outputs": [".next/**", "!.next/cache/**"]
     },

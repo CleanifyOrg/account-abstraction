@@ -7,14 +7,17 @@ import {
   Card,
   CardBody,
   Heading,
+  HStack,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import logo from "../../../../assets/logo.png";
 
 export const Readme = () => {
+  const [isDesktop] = useMediaQuery("(min-width: 800px)");
   return (
     <Card w={"full"}>
       <CardBody>
-        <VStack align="stretch" gap={4} px={20}>
+        <VStack align="stretch" gap={4} px={isDesktop ? 20 : 4}>
           <VStack align="center">
             <Image
               src={logo}
@@ -25,6 +28,34 @@ export const Readme = () => {
             />
             <Text mt={4}>Account Abstraction for the vechain ecosystem.</Text>
           </VStack>
+
+          <HStack justify="space-between">
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "0px",
+                paddingBottom: "56.250%",
+              }}
+            >
+              <iframe
+                allow="fullscreen;autoplay"
+                allowFullScreen
+                height="100%"
+                src="https://streamable.com/e/yuzm44?autoplay=1&muted=1"
+                width="100%"
+                style={{
+                  border: "none",
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  left: "0px",
+                  top: "0px",
+                  overflow: "hidden",
+                }}
+              ></iframe>
+            </div>
+          </HStack>
 
           <Heading size={"md"}>Tech</Heading>
           <Text>There are 2 contracts:</Text>
