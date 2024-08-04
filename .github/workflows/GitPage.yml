@@ -25,16 +25,14 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
 
-      - name: Navigate to frontend directory
-        run: cd apps/frontend
+      # - name: Navigate to frontend directory
+      #   run: cd apps/frontend
 
       - name: Install Dependencies
         run: yarn
-        working-directory: apps/frontend
 
       - name: Build Website
         run: yarn build
-        working-directory: apps/frontend
 
       - name: Deploy With CNAME
         # if: ${{ github.repository_owner == 'vechain' }}
