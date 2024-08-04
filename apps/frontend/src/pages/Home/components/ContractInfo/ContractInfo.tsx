@@ -20,6 +20,7 @@ import { EnvConfig } from "@repo/config/contracts";
 import { useWallet } from "@vechain/dapp-kit-react";
 import { useCallback } from "react";
 import { getConfig } from "@repo/config";
+import { useContractVersion } from "../../../../hooks/useContractVersion";
 
 type ContractAddressAndBalanceCardProps = {
   title: string;
@@ -37,6 +38,8 @@ export const ContractInfo = ({
 
   const config = getConfig(import.meta.env.VITE_APP_ENV);
   const isCorrectNetwork = config.network.name === env;
+
+  const { data: contractVersion } = useContractVersion(address, env);
 
   const { data: accountsCreatedEvents, isLoading: isLoadingCreatedAccoounts } =
     useAccountCreatedEvents(env);
@@ -71,6 +74,14 @@ export const ContractInfo = ({
               Contract address
             </Text>
             <AddressButtonGhostVariant address={address} />
+          </HStack>
+          <HStack w="full" justify={"space-between"}>
+            <Text fontSize="md" fontWeight={600}>
+              Version
+            </Text>
+            <Text fontSize="md" fontWeight={600}>
+              {contractVersion}
+            </Text>
           </HStack>
 
           <HStack w="full" justify={"space-between"}>

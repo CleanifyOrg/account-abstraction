@@ -1,4 +1,5 @@
 import { ContractsConfig } from "@repo/config/contracts";
+import { Interface } from "ethers";
 import { ethers, network } from "hardhat";
 
 export async function deployAll(config: ContractsConfig): Promise<{
@@ -12,77 +13,44 @@ export async function deployAll(config: ContractsConfig): Promise<{
     `Deploying on ${network.name}  with account ${deployer.address}...`
   );
 
-  console.log(`Deploying mock SimpleAccountFactory...`);
-  const SimpleAccountFactory = await ethers.getContractFactory(
-    "SimpleAccountFactory"
+  // Deploy the implementation contract
+  const Contract = await ethers.getContractFactory("SimpleAccountFactory");
+  const implementation = await Contract.deploy();
+  await implementation.waitForDeployment();
+  let tx = await implementation.deploymentTransaction();
+  let receipt = await ethers.provider.getTransactionReceipt(tx!.hash);
+  const implementationAddress = receipt?.contractAddress;
+  console.log(
+    `SimpleAccountFactory implementation deployed to ${implementationAddress}`
   );
-  const simpleAccountFactory =
-    await SimpleAccountFactory.connect(deployer).deploy();
-  await simpleAccountFactory.waitForDeployment();
-  const sfTx = await simpleAccountFactory.deploymentTransaction();
-  const sfReceipt = await ethers.provider.getTransactionReceipt(sfTx!.hash);
-  console.log(`SimpleAccountFactory deployed to ${sfReceipt?.contractAddress}`);
-  if (!sfReceipt?.contractAddress)
+  if (!implementationAddress)
     throw new Error("SimpleAccountFactory deployment failed");
 
-  // console.log("Deploy fee delegation contract...");
-  // const FeeDelegation = await ethers.getContractFactory("FeeDelegation");
-  // const feeDelegation = await FeeDelegation.connect(deployer).deploy();
-  // await feeDelegation.waitForDeployment();
-  // const fdTx = await feeDelegation.deploymentTransaction();
-  // const fdReceipt = await ethers.provider.getTransactionReceipt(fdTx!.hash);
-  // console.log(`FeeDelegation deployed to ${fdReceipt?.contractAddress}`);
+  // Deploy the proxy contract, link it to the implementation and call the initializer
+  const proxyFactory = await ethers.getContractFactory("AAProxy");
+  const proxy = await proxyFactory.deploy(
+    implementationAddress,
+    getInitializerData(Contract.interface, [])
+  );
+  await proxy.waitForDeployment();
+  tx = await proxy.deploymentTransaction();
+  receipt = await ethers.provider.getTransactionReceipt(tx!.hash);
+  const proxyAddress = receipt?.contractAddress;
+  console.log(`SimpleAccountFactory proxy: ${proxyAddress}`);
 
-  console.log(`Done`);
-  // console.log("Testing SimpleAccountFactory");
-
-  // const SimpleAccountFactoryDeployed = await ethers.getContractAt(
-  //     "SimpleAccountFactory",
-  //     sfReceipt?.contractAddress
-  // );
-
-  // await SimpleAccountFactoryDeployed.createAccount(
-  //     owner.address,
-  //     BigInt(owner.address)
-  // );
-
-  // console.log(
-  //     "Owner Address",
-  //     owner.address,
-
-  //     await SimpleAccountFactoryDeployed.getAccountAddress(
-  //         owner.address,
-  //         BigInt(owner.address)
-  //     )
-  // );
-  // console.log(
-  //     "Owner Address",
-  //     owner.address,
-  //     await SimpleAccountFactoryDeployed.getAccountAddress(owner.address, 0)
-  // );
-
-  // await SimpleAccountFactoryDeployed.createAccount(
-  //     deployer.address,
-  //     BigInt(deployer.address)
-  // );
-  // console.log(
-  //     "Deployer Address",
-  //     deployer.address,
-  //     await SimpleAccountFactoryDeployed.getAccountAddress(
-  //         deployer.address,
-  //         BigInt(deployer.address)
-  //     )
-  // );
-  // console.log(
-  //     "Deployer Address",
-  //     deployer.address,
-  //     await SimpleAccountFactoryDeployed.getAccountAddress(
-  //         deployer.address,
-  //         0
-  //     )
-  // );
+  if (!proxyAddress)
+    throw new Error("SimpleAccountFactory proxy deployment failed");
 
   return {
-    simpleAccountFactory: sfReceipt.contractAddress,
+    simpleAccountFactory: proxyAddress,
   };
+}
+
+export function getInitializerData(contractInterface: Interface, args: any[]) {
+  const initializer = "initialize";
+  const fragment = contractInterface.getFunction(initializer);
+  if (!fragment) {
+    throw new Error(`Contract initializer not found`);
+  }
+  return contractInterface.encodeFunctionData(fragment, args);
 }

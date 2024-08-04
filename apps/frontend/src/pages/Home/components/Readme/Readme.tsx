@@ -2,7 +2,6 @@ import {
   Image,
   Text,
   VStack,
-  Link,
   List,
   ListItem,
   Card,
