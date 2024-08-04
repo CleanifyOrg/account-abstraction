@@ -28,7 +28,7 @@ export const useCreateAccount = ({ onSuccess }: Props) => {
           to: getConfig(env).simpleAccountFactoryContractAddress,
           contractInterface: SimpleAccountFactoryInterface,
           method: "createAccount",
-          args: [owner, BigInt(owner)],
+          args: [owner],
           comment: "Create abstracted account controlled by your wallet",
         }),
       ];

@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 import "./SimpleAccount.sol";
 
 /**
- * A sample factory contract for SimpleAccount
+ * Factory contract for SimpleAccount
  * A UserOperations "initCode" holds the address of the factory, and a method call (to createAccount, in this sample factory).
  * The factory's createAccount returns the target account address even if it is already installed.
  */
@@ -21,16 +21,17 @@ contract SimpleAccountFactory {
     }
 
     /**
-     * create an account, and return its address.
-     * returns the address even if the account is already deployed.
+     * @dev Create an account, and return its address.
+     * Returns the address even if the account is already deployed.
      * Note that during UserOperation execution, this method is called only if the account is not deployed.
      * This method returns an existing account address even after account creation
+     *
+     * Notice: the salt is calculated internally from the owner address,
+     * so the same owner will always get the same address.
      */
-    function createAccount(
-        address owner,
-        uint256 salt
-    ) public returns (SimpleAccount ret) {
-        address addr = getAccountAddress(owner, salt);
+    function createAccount(address owner) public returns (SimpleAccount ret) {
+        uint256 salt = uint256(uint160(owner));
+        address addr = getAccountAddress(owner);
         uint256 codeSize = addr.code.length;
         if (codeSize > 0) {
             return SimpleAccount(payable(addr));
@@ -49,12 +50,10 @@ contract SimpleAccountFactory {
     }
 
     /**
-     * calculate the counterfactual address of this account as it would be returned by createAccount()
+     * @dev Calculate the counterfactual address of this account as it would be returned by createAccount()
      */
-    function getAccountAddress(
-        address owner,
-        uint256 salt
-    ) public view returns (address) {
+    function getAccountAddress(address owner) public view returns (address) {
+        uint256 salt = uint256(uint160(owner));
         return
             Create2.computeAddress(
                 bytes32(salt),

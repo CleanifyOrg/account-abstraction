@@ -67,7 +67,7 @@ contract SimpleAccount is
     }
 
     /**
-     * execute a transaction (called directly from owner) authorized via signatures
+     * @dev execute a transaction (called directly from owner) authorized via signatures
      
      * @param to destination address to call
      * @param value the value to pass in this call
@@ -112,7 +112,7 @@ contract SimpleAccount is
     }
 
     /**
-     * execute a sequence of transactions
+     * @dev execute a sequence of transactions
      * @dev to reduce gas consumption for trivial case (no value), use a zero-length array to mean zero value
      * @param dest an array of destination addresses
      * @param value an array of values to pass to each call. can be zero-length for no-value calls

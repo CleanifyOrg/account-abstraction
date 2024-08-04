@@ -2,7 +2,7 @@ import { AppConfig } from "."
  const config: AppConfig = {
   "environment": "testnet",
   "basePath": "https://example.org",
-  "simpleAccountFactoryContractAddress": "0xC3EfaFaC0429Ec72AA71160A0e65E10A681851bD",
+  "simpleAccountFactoryContractAddress": "0xeA854F42045D45e9F03D246FbaEC8914BD971f91",
   "nodeUrl": "https://testnet.vechain.org",
   "network": {
     "id": "testnet",

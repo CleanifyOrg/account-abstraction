@@ -1,6 +1,7 @@
 import { Box, Container, VStack } from "@chakra-ui/react";
 import { Home } from "./pages/Home";
 import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           </Container>
         </VStack>
       </VStack>
+      <Footer />
     </Box>
   );
 }

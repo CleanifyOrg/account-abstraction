@@ -26,7 +26,7 @@ export const getAccountAddress = async (
   const res = await thor
     .account(getConfig(env).simpleAccountFactoryContractAddress)
     .method(JSON.parse(functionFragment))
-    .call(address, BigInt(address).toString());
+    .call(address);
 
   if (res.reverted) throw new Error("Reverted");
 

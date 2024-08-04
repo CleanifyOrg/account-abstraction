@@ -1,19 +1,21 @@
 # Account Abstraction
 
-![Logo](apps/frontend/src/assets/logo.png)
+<div align="center">
+  <img src="apps/frontend/src/assets/logo.png" alt="Logo" width="200"/>
 
-Simplified version of the [Account Abstraction pattern](https://github.com/eth-infinitism/account-abstraction) for the Vechain Thor network.
+  <p>Simplified version of the [Account Abstraction pattern](https://github.com/eth-infinitism/account-abstraction) for the vechain blockchain.</p>
+</div>
 
-The contracts consist of:
+There are 2 contracts:
 
-- SimpleAccount: The AA of the users, it allows the user to send transactions with it direct call execution or through signed type message broadcasted by other wallets.
-- SimpleAccountFactory: Factory contract to create SimpleAccount contracts. It allows anyone to create a new SimpleAccount contract and set the owner of the contract to the caller. In order to have a common standard we calculate the salt as `BigInt(ownerAddress)`.
+- **SimpleAccount**: Is the abstracted account of the user.
+- **SimpleAccountFactory**: Factory contract to create SimpleAccount contracts on demand.
 
-This project consist of a frontend that interacts with the contracts deployed on the Vechain Thor network and a set of contracts that can be forked and used in your own projects.
+You can fork the contracts and deploy them on your own, but we recommend using the contracts deployed by us for a better cross-app compatibility.
 
-We recommend directly using the already deployed contracts in order to have as less source of truth as possible for projects on vechain.
+Owner of the Simple Account can execute transactions called directly from him or authorized via signatures and broadcasted by a third party.
 
-## Requirements
+## Run the project
 
 Ensure your development environment is set up with the following:
 
