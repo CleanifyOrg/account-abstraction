@@ -1,9 +1,9 @@
-# Account Abstraction
+# Account Abstraction Factory
 
 <div align="center">
   <img src="apps/frontend/src/assets/logo.png" alt="Logo" width="200"/>
 
-  <p>Simplified version of the [Account Abstraction pattern](https://github.com/eth-infinitism/account-abstraction) for the vechain blockchain.</p>
+  <p>Simplified version of the <a href="https://github.com/eth-infinitism/account-abstraction" target="_blank">Account Abstraction pattern<a> for the vechain blockchain.</p>
 </div>
 
 There are 2 contracts:
