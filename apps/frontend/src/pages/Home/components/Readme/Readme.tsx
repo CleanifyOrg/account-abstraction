@@ -10,23 +10,27 @@ import {
   HStack,
   useMediaQuery,
 } from "@chakra-ui/react";
-import logo from "../../../../assets/logo.png";
+import logo from "../../../../assets/privy-aa-fee.png";
 
 export const Readme = () => {
   const [isDesktop] = useMediaQuery("(min-width: 800px)");
   return (
     <Card w={"full"}>
       <CardBody>
-        <VStack align="stretch" gap={4} px={isDesktop ? 20 : 4}>
-          <VStack align="center">
+        <VStack align="stretch" gap={4} px={isDesktop ? 20 : 4} spacing={4}>
+          <VStack align="center" spacing={4}>
+            <Heading size={"lg"} mt={4}>
+              A new era for blockchain UX
+            </Heading>
             <Image
+              mt={8}
               src={logo}
               alt="logo"
-              w={"150px"}
+              w={"full"}
               // h="400px"
               rounded="full"
             />
-            <Text mt={4}>Account Abstraction for the vechain ecosystem.</Text>
+            {/* <Text mt={4}>Account Abstraction for the vechain ecosystem.</Text> */}
           </VStack>
 
           <HStack justify="space-between">
