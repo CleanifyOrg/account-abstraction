@@ -24,18 +24,23 @@ jobs:
           key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.OS }}-node-
+
+      - name: Navigate to frontend directory
+        run: cd apps/frontend
+
       - name: Install Dependencies
         run: yarn
+        working-directory: apps/frontend
 
       - name: Build Website
         run: yarn build
+        working-directory: apps/frontend
 
-    #   - name: Deploy With CNAME
-    #     if: ${{ github.repository_owner == 'vechain' }}
-
-    #     uses: peaceiris/actions-gh-pages@v3
-    #     with:
-    #       github_token: ${{ secrets.GITHUB_TOKEN }}
-    #       publish_dir: dist/
-    #       cname: inspector.vecha.in
-    #       force_orphan: true
+      # - name: Deploy With CNAME
+      #   if: ${{ github.repository_owner == 'vechain' }}
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: apps/frontend/dist
+      #     cname: inspector.vecha.in
+      #     force_orphan: true
