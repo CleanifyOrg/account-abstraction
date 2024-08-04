@@ -10,14 +10,13 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { persister, queryClient } from "./utils/queryClient.ts";
 import { getConfig } from "@repo/config";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Footer } from "./components/Footer/Footer.tsx";
 
 const config = getConfig(import.meta.env.VITE_APP_ENV);
 
 const walletConnectOptions: WalletConnectOptions = {
   projectId: "a0b855ceaf109dbc8426479a4c3d38d8",
   metadata: {
-    name: "Sample VeChain dApp",
+    name: "AA Factory",
     description: "A sample VeChain dApp",
     url: window.location.origin,
     icons: [`${window.location.origin}/images/logo/my-dapp.png`],
