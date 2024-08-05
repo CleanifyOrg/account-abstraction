@@ -10,7 +10,7 @@
     },
     "build:prod": {
       "cache": false,
-      "dependsOn": ["^compile", "^setup-contracts"],
+      "dependsOn": ["^setup-contracts:mainnet"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
