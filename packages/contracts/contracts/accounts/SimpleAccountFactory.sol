@@ -9,14 +9,17 @@ import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/acce
 import "./SimpleAccount.sol";
 
 /**
- * Factory contract for SimpleAccount
- * A UserOperations "initCode" holds the address of the factory, and a method call (to createAccount, in this sample factory).
+ * @title SimpleAccountFactory
+ * @notice Factory contract for smart accounts.
+ * @dev A UserOperations "initCode" holds the address of the factory, and a method call (to createAccount, in this sample factory).
  * The factory's createAccount returns the target account address even if it is already installed.
  */
 contract SimpleAccountFactory is UUPSUpgradeable, AccessControlUpgradeable {
     event AccountCreated(SimpleAccount account, address owner, uint256 salt);
 
     SimpleAccount public accountImplementation;
+
+    // ---------- Initialization ---------- //
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -34,9 +37,15 @@ contract SimpleAccountFactory is UUPSUpgradeable, AccessControlUpgradeable {
 
     // ---------- Authorizers ---------- //
 
+    /**
+     * @dev Authorize the upgrade of the account
+     * @param newImplementation the address of the new implementation
+     */
     function _authorizeUpgrade(
         address newImplementation
     ) internal virtual override onlyRole(DEFAULT_ADMIN_ROLE) {}
+
+    // ---------- Setters ---------- //
 
     /**
      * @dev Create an account, and return its address.
@@ -87,7 +96,13 @@ contract SimpleAccountFactory is UUPSUpgradeable, AccessControlUpgradeable {
             );
     }
 
+    // ---------- Getters ---------- //
+
+    /**
+     * @dev Get the version of the factory
+     * @return the version of the factory
+     */
     function version() public pure returns (string memory) {
-        return "1";
+        return "2";
     }
 }

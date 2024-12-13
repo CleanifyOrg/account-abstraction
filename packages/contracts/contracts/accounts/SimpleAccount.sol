@@ -15,9 +15,10 @@ import "./callback/TokenCallbackHandler.sol";
 import "../core/UserOperationLib.sol";
 
 /**
- * minimal account.
- *  this is sample minimal account.
- *  has execute, eth handling methods.
+ * @title Minimal smart account.
+ * @notice This is a minimal smart account that can have a single owner, and execute transactions on behalf of the owner,
+ * through a direct call or through a signature.
+ * @dev Can be upgraded by the owner.
  */
 contract SimpleAccount is
     Initializable,
@@ -31,18 +32,44 @@ contract SimpleAccount is
 
     event SimpleAccountInitialized(address indexed owner);
 
-    modifier onlyOwner() {
-        _onlyOwner();
-        _;
-    }
-
-    // solhint-disable-next-line no-empty-blocks
-    receive() external payable {}
+    // ---------- Initializer ---------- //
 
     constructor() {
         _disableInitializers();
     }
 
+    /**
+     * @dev Initialize the account with the owner
+     * @param anOwner the owner (signer) of this account
+     */
+    function initialize(address anOwner) public virtual initializer {
+        _initialize(anOwner);
+        __EIP712_init("Wallet", "1");
+        __UUPSUpgradeable_init();
+    }
+
+    /**
+     * @dev Internal function to initialize the account
+     * @param anOwner the owner (signer) of this account
+     */
+    function _initialize(address anOwner) internal virtual {
+        owner = anOwner;
+        emit SimpleAccountInitialized(owner);
+    }
+
+    // ---------- Modifiers and Authorization ---------- //
+
+    /**
+     * @dev Modifier to check if the caller is the owner
+     */
+    modifier onlyOwner() {
+        _onlyOwner();
+        _;
+    }
+
+    /**
+     * @dev Internal function to check if the caller is the owner
+     */
     function _onlyOwner() internal view {
         //directly from EOA owner, or through the account itself (which gets redirected through execute())
         require(
@@ -52,7 +79,27 @@ contract SimpleAccount is
     }
 
     /**
-     * execute a transaction (called directly from owner)
+     * @dev Require the function call went through owner
+     */
+    function _requireFromOwner() internal view {
+        require(msg.sender == owner, "account: not Owner or EntryPoint");
+    }
+
+    /**
+     * @dev Authorize the upgrade of the account
+     * @param newImplementation the address of the new implementation
+     */
+    function _authorizeUpgrade(
+        address newImplementation
+    ) internal view override {
+        (newImplementation);
+        _onlyOwner();
+    }
+
+    // ---------- Setters ---------- //
+
+    /**
+     * @dev Execute a transaction (called directly from owner)
      * @param dest destination address to call
      * @param value the value to pass in this call
      * @param func the calldata to pass in this call
@@ -141,25 +188,22 @@ contract SimpleAccount is
     }
 
     /**
-     * @param anOwner the owner (signer) of this account
+     * @dev Transfer ownership of the account
+     * @param newOwner the new owner of the account
      */
-    function initialize(address anOwner) public virtual initializer {
-        _initialize(anOwner);
-        __EIP712_init("Wallet", "1");
-        __UUPSUpgradeable_init();
+    function transferOwnership(address newOwner) public onlyOwner {
+        _requireFromOwner();
+        owner = newOwner;
     }
 
-    function _initialize(address anOwner) internal virtual {
-        owner = anOwner;
-        emit SimpleAccountInitialized(owner);
-    }
+    // ---------- Internal ---------- //
 
-    // Require the function call went through owner
-    function _requireFromOwner() internal view {
-        require(msg.sender == owner, "account: not Owner or EntryPoint");
-    }
-
-    /// implement template method of BaseAccount
+    /**
+     * @dev Implement template method of BaseAccount
+     * @param userOp the user operation to validate
+     * @param userOpHash the hash of the user operation
+     * @return validationData the validation data
+     */
     function _validateSignature(
         PackedUserOperation calldata userOp,
         bytes32 userOpHash
@@ -170,6 +214,12 @@ contract SimpleAccount is
         return SIG_VALIDATION_SUCCESS;
     }
 
+    /**
+     * @dev Internal function to call a target
+     * @param target the target address to call
+     * @param value the value to pass in this call
+     * @param data the calldata to pass in this call
+     */
     function _call(address target, uint256 value, bytes memory data) internal {
         (bool success, bytes memory result) = target.call{value: value}(data);
         if (!success) {
@@ -179,10 +229,18 @@ contract SimpleAccount is
         }
     }
 
-    function _authorizeUpgrade(
-        address newImplementation
-    ) internal view override {
-        (newImplementation);
-        _onlyOwner();
+    // ---------- Getters ---------- //
+
+    /**
+     * @dev Get the version of the account
+     * @return the version of the account
+     */
+    function version() public pure returns (string memory) {
+        return "2";
     }
+
+    // ---------- Fallback ---------- //
+
+    // solhint-disable-next-line no-empty-blocks
+    receive() external payable {}
 }

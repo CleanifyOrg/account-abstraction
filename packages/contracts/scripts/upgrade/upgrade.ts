@@ -1,6 +1,5 @@
 import { getConfig } from "@repo/config";
 import { ethers } from "hardhat";
-import { getInitializerData } from "../deploy/deploy";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
 
 const config = getConfig();
@@ -30,6 +29,13 @@ export const upgrade = async () => {
     throw new Error(
       `The implementation address is not the one expected: ${newImplementationAddress} !== ${await implementation.getAddress()}`
     );
+  }
+
+  // Check the version
+  const version = await currentImplementationContract.version();
+  console.log(`Current version: ${version}`);
+  if (version !== "2") {
+    throw new Error(`The version is not the expected one: ${version} !== 2`);
   }
 
   console.log(`Upgraded implementation to: ${newImplementationAddress}`);
