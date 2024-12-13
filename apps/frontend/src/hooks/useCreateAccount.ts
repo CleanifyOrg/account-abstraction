@@ -7,6 +7,7 @@ import { getAccountCreatedEventsQueryKey } from "./useAccountCreatedEvents";
 import { EnvConfig } from "@repo/config/contracts";
 import { getAccountAddressQueryKey } from "./useGetAccountAddress";
 import { useWallet } from "@vechain/dapp-kit-react";
+import { getIsAccountDeployedQueryKey } from "./useIsAccountDeployed";
 
 const SimpleAccountFactoryInterface =
   SimpleAccountFactory__factory.createInterface();
@@ -29,7 +30,7 @@ export const useCreateAccount = ({ onSuccess }: Props) => {
           contractInterface: SimpleAccountFactoryInterface,
           method: "createAccount",
           args: [owner],
-          comment: "Create abstracted account controlled by your wallet",
+          comment: `Create abstracted account controlled by ${owner}`,
         }),
       ];
     },
@@ -41,6 +42,9 @@ export const useCreateAccount = ({ onSuccess }: Props) => {
       getAccountCreatedEventsQueryKey("testnet"),
       getAccountCreatedEventsQueryKey("mainnet"),
       getAccountAddressQueryKey(account ?? "", "testnet"),
+      getAccountAddressQueryKey(account ?? "", "mainnet"),
+      getIsAccountDeployedQueryKey(account ?? "", "testnet"),
+      getIsAccountDeployedQueryKey(account ?? "", "mainnet"),
     ],
     [account]
   );

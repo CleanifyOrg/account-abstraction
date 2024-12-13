@@ -8,7 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { UserAccount } from "../UserAccount/UserAccount";
-import { useWallet } from "@vechain/dapp-kit-react";
+import { useWallet, WalletButton } from "@vechain/dapp-kit-react";
 import { useGetAccountAddress } from "../../../../hooks";
 
 export const AbstractedAccounts = () => {
@@ -35,9 +35,10 @@ export const AbstractedAccounts = () => {
       <CardBody>
         {!account ? (
           <VStack spacing={4}>
-            <Heading size={"md"}>
+            <Heading size={"sm"}>
               Connect your wallet to see your smart accounts
             </Heading>
+            <WalletButton />
           </VStack>
         ) : !testnetAccountAddress && !mainnetAccountAddress ? (
           <VStack spacing={4}>
@@ -50,8 +51,16 @@ export const AbstractedAccounts = () => {
               w="full"
               justify={"space-between"}
             >
-              <UserAccount env="testnet" account={testnetAccountAddress} />
-              <UserAccount env="mainnet" account={mainnetAccountAddress} />
+              <UserAccount
+                env="mainnet"
+                account={account}
+                showDeployButton={true}
+              />
+              <UserAccount
+                env="testnet"
+                account={account}
+                showDeployButton={false}
+              />
             </Stack>
           </VStack>
         )}
