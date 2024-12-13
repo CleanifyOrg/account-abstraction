@@ -1,10 +1,10 @@
 {
-  "name": "account-abstraction",
+  "name": "smart-accounts-factory",
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "build:testnet": "dotenv -e .env -v VITE_APP_ENV=testnet -- turbo build:prod",
-    "build:mainnet": "dotenv -e .env -v VITE_APP_ENV=mainnet -- turbo build:prod",
+    "build:testnet": "dotenv -v VITE_APP_ENV=testnet -e .env -- turbo build:prod",
+    "build:mainnet": "dotenv -v VITE_APP_ENV=mainnet -e .env -- turbo build:prod",
     "lint": "turbo lint",
     "clean": "turbo clean",
     "purge": "turbo purge",
