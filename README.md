@@ -1,4 +1,4 @@
-# VeChain Smart Account Factory
+# VeChain Smart Accounts Factory
 
 <div align="center">
   <img src="apps/frontend/src/assets/logo.png" alt="Logo" width="200"/>
