@@ -21,8 +21,7 @@ jobs:
         run: yarn install
 
       - name: Build
-        working-directory: ./apps/frontend
-        run: yarn build
+        run: yarn build:mainnet
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
