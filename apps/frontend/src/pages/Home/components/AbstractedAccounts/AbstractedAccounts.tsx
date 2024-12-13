@@ -33,9 +33,15 @@ export const AbstractedAccounts = () => {
       </CardHeader>
 
       <CardBody>
-        {!testnetAccountAddress && !mainnetAccountAddress ? (
+        {!account ? (
           <VStack spacing={4}>
-            <Heading size={"md"}>No accounts found, create one</Heading>
+            <Heading size={"md"}>
+              Connect your wallet to see your smart accounts
+            </Heading>
+          </VStack>
+        ) : !testnetAccountAddress && !mainnetAccountAddress ? (
+          <VStack spacing={4}>
+            <Heading size={"md"}>No smart account found</Heading>
           </VStack>
         ) : (
           <VStack spacing={4}>

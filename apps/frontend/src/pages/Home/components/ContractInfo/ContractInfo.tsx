@@ -1,25 +1,15 @@
 import {
-  Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   HStack,
   Heading,
   Text,
   VStack,
-  useToast,
 } from "@chakra-ui/react";
 import { AddressButtonGhostVariant } from "../../../../components";
-import {
-  useAccountCreatedEvents,
-  useCreateAccount,
-  useGetAccountAddress,
-} from "../../../../hooks";
+import { useAccountCreatedEvents } from "../../../../hooks";
 import { EnvConfig } from "@repo/config/contracts";
-import { useWallet } from "@vechain/dapp-kit-react";
-import { useCallback } from "react";
-import { getConfig } from "@repo/config";
 import { useContractVersion } from "../../../../hooks/useContractVersion";
 
 type ContractAddressAndBalanceCardProps = {
@@ -33,34 +23,10 @@ export const ContractInfo = ({
   address,
   env,
 }: ContractAddressAndBalanceCardProps) => {
-  const { account } = useWallet();
-  const toast = useToast();
-
-  const config = getConfig(import.meta.env.VITE_APP_ENV);
-  const isCorrectNetwork = config.network.name === env;
-
   const { data: contractVersion } = useContractVersion(address, env);
 
   const { data: accountsCreatedEvents, isLoading: isLoadingCreatedAccoounts } =
     useAccountCreatedEvents(env);
-
-  const { data: accountAddress } = useGetAccountAddress(account ?? "", env);
-
-  const createAccountMutation = useCreateAccount({
-    onSuccess: () => {
-      toast({
-        title: "Success",
-        description: "Account created",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-    },
-  });
-
-  const onCreateAccount = useCallback(() => {
-    createAccountMutation.sendTransaction({ owner: account ?? "", env });
-  }, [createAccountMutation, account, env]);
 
   return (
     <Card w="full" borderRadius={"2xl"} p={2}>
@@ -96,19 +62,6 @@ export const ContractInfo = ({
           </HStack>
         </VStack>
       </CardBody>
-      <CardFooter>
-        {!accountAddress && (
-          <Button
-            w="full"
-            colorScheme="blue"
-            variant="outline"
-            onClick={onCreateAccount}
-            isDisabled={!account || !!accountAddress || !isCorrectNetwork}
-          >
-            {!isCorrectNetwork ? `Switch to ${env} network` : "Create Account"}
-          </Button>
-        )}
-      </CardFooter>
     </Card>
   );
 };
