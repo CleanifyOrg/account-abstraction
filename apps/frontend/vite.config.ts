@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { resolve } from "path";
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   return {
     plugins: [nodePolyfills(), react()],
     build: {
@@ -32,6 +32,6 @@ export default defineConfig(() => {
         resolve(__dirname, "test/setup/resizeObserverMock.ts"),
       ],
     },
-    base: "/",
+    base: mode === "production" ? "/smart-accounts-factory/" : "/",
   };
 });

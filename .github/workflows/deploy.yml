@@ -15,8 +15,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      MNEMONIC: ${{ secrets.MNEMONIC }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
