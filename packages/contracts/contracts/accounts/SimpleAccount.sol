@@ -19,6 +19,10 @@ import "../core/UserOperationLib.sol";
  * @notice This is a minimal smart account that can have a single owner, and execute transactions on behalf of the owner,
  * through a direct call or through a signature.
  * @dev Can be upgraded by the owner.
+ *
+ * ---------- Version 2 ----------
+ * - Added version() method to allow for versioning.
+ * - Added transferOwnership method to allow for ownership transfer of the smart account.
  */
 contract SimpleAccount is
     Initializable,
