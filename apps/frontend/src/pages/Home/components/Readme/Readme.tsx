@@ -20,7 +20,7 @@ export const Readme = () => {
         <VStack align="stretch" gap={4} px={isDesktop ? 20 : 4} spacing={4}>
           <VStack align="center" spacing={4}>
             <Heading size={"lg"} mt={4}>
-              A new era for blockchain UX
+              Readme
             </Heading>
             <Image
               mt={8}

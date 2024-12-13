@@ -2,8 +2,9 @@ import {
   Card,
   CardBody,
   CardHeader,
-  HStack,
   Heading,
+  Stack,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import { UserAccount } from "../UserAccount/UserAccount";
@@ -24,8 +25,13 @@ export const AbstractedAccounts = () => {
   return (
     <Card>
       <CardHeader>
-        <Heading size={"sm"}>Your abstracted accounts</Heading>
+        <Heading size={"sm"}>Your smart accounts</Heading>
+        <Text fontSize="sm" mt={2}>
+          Every wallet on VeChain can own a smart account. The address of your
+          smart account is deterministic, and it can be deployed at any time.
+        </Text>
       </CardHeader>
+
       <CardBody>
         {!testnetAccountAddress && !mainnetAccountAddress ? (
           <VStack spacing={4}>
@@ -33,10 +39,14 @@ export const AbstractedAccounts = () => {
           </VStack>
         ) : (
           <VStack spacing={4}>
-            <HStack w="full" justify={"space-between"}>
+            <Stack
+              direction={["column", "row"]}
+              w="full"
+              justify={"space-between"}
+            >
               <UserAccount env="testnet" account={testnetAccountAddress} />
               <UserAccount env="mainnet" account={mainnetAccountAddress} />
-            </HStack>
+            </Stack>
           </VStack>
         )}
       </CardBody>

@@ -16,10 +16,10 @@ const config = getConfig(import.meta.env.VITE_APP_ENV);
 const walletConnectOptions: WalletConnectOptions = {
   projectId: "a0b855ceaf109dbc8426479a4c3d38d8",
   metadata: {
-    name: "AA Factory",
-    description: "A sample VeChain dApp",
+    name: "VeChain Smart Account Factory",
+    description: "Check your smart account on VeChain",
     url: window.location.origin,
-    icons: [`${window.location.origin}/images/logo/my-dapp.png`],
+    icons: [`${window.location.origin}/assets/logo.png`],
   },
 };
 
