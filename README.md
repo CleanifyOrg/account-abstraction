@@ -77,3 +77,5 @@ Place your `.env` files in the root folder, you can copy `.env.example` file and
 ```bash
   yarn dev:testnet
 ```
+
+<img src="apps/frontend/src/assets/privy-aa-fee.png" alt="privy-aa-fee"/>
