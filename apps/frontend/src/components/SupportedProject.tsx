@@ -23,7 +23,7 @@ export const SupportedProject = () => {
   const projects = [
     { href: "https://cleanify.vet", logo: CleanifyLogo, name: "Cleanify" },
     { href: "https://mugshot.vet", logo: MugshotLogo, name: "Mugshot" },
-    { href: "https://evearn.vet", logo: EVEarnLogo, name: "EVEarn" },
+    { href: "https://evearn.io", logo: EVEarnLogo, name: "EVEarn" },
   ];
 
   return (
