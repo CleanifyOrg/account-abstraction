@@ -29,7 +29,7 @@ export const ContractInfo = ({
     useAccountCreatedEvents(env);
 
   return (
-    <Card w="full" borderRadius={"2xl"} p={2}>
+    <Card w="full" p={2}>
       <CardHeader>
         <Heading size={"sm"}>{title}</Heading>
       </CardHeader>
