@@ -21,10 +21,12 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn workspace frontend build
+        working-directory: ./apps/frontend
+        run: yarn build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./apps/frontend/dist
+          force_orphan: true
