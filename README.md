@@ -1,4 +1,4 @@
-# Account Abstraction Factory
+# VeChain Smart Account Factory
 
 <div align="center">
   <img src="apps/frontend/src/assets/logo.png" alt="Logo" width="200"/>
@@ -6,7 +6,7 @@
   <p>Simplified version of the <a href="https://github.com/eth-infinitism/account-abstraction" target="_blank">Account Abstraction pattern<a> for the vechain blockchain.</p>
 </div>
 
-There are 2 contracts:
+There are 2 contracts (that you can find in the `packages/contracts/contracts` folder):
 
 - **SimpleAccount**: Is the abstracted account of the user.
 - **SimpleAccountFactory**: Factory contract to create SimpleAccount contracts on demand.
@@ -14,6 +14,14 @@ There are 2 contracts:
 You can fork the contracts and deploy them on your own, but we recommend using the contracts deployed by us for a better cross-app compatibility.
 
 Owner of the Simple Account can execute transactions called directly from him or authorized via signatures and broadcasted by a third party.
+
+### Mainnet Address
+
+- SimpleAccountFactory: `0xC06Ad8573022e2BE416CA89DA47E8c592971679A`
+
+### Testnet Address
+
+- SimpleAccountFactory: `0x7EABA81B4F3741Ac381af7e025f3B6e0428F05Fb`
 
 ## Run the project
 
@@ -48,9 +56,15 @@ Clone the repository and install dependencies with ease:
 yarn # Run this at the root level of the project
 ```
 
-Place your `.env` files in the root folder, you can copy `.env.example` file and rename it to `.env` changing the values to your own:
+Place your `.env` files in the root folder, you can copy `.env.example` file and rename it to `.env` changing the values to your own.
 
-## Running on Testnet 🌐
+## Running the frontend with the deployed contracts
+
+```bash
+  yarn dev:mainnet
+```
+
+## Deploy the contracts by yourself
 
 ### Deploy the contracts on the Testnet:
 
@@ -62,18 +76,4 @@ Place your `.env` files in the root folder, you can copy `.env.example` file and
 
 ```bash
   yarn dev:testnet
-```
-
-## Running on Mainnet 🌐
-
-### Deploy the contracts on the Mainnet:
-
-```bash
-  yarn contracts:deploy:mainnet
-```
-
-### Run the frontend to interact with the contracts on the Mainnet:
-
-```bash
-  yarn dev:mainnet
 ```
